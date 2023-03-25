@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "../praticando js"
+		},
+		{
+			"path": "../estundandoC"
+		},
+		{
+			"path": "../../aprendendo Typescript"
+		},
+		{
+			"path": "../../html,css,javascript"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../tabuada"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "tabuadaV2"
+	}
+}

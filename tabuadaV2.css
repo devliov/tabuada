@@ -1,0 +1,124 @@
+/* .divMultiplicationTable{
+    text-align: center;
+    margin: auto;
+    margin-top: 100px;
+    background-color: blue;
+    width: 300px;
+    height: 300px;
+}
+
+.divMultiplicationcontent{
+    text-align: center;
+    background-color: red;
+    margin: 10px;
+    width: 280px;
+    height: 260px;
+} */
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.title{
+  text-align: center;
+  margin: auto;
+}
+
+.title_symbol {
+  color: #f00;
+}
+
+.inputComand,
+select:focus {
+  outline: 0;
+  display: block;
+  margin: auto;
+  width: 70%;
+  height: 40px;
+  text-align: center;
+  font-weight: bolder;
+  font-size: 20px;
+  color: rgb(31, 30, 30);
+  border: 2px #777777 solid;
+  border-radius: 10px 0px 10px 0px;
+}
+
+.inputComand::placeholder{
+  color: #b9b7b7;
+}
+
+.main,
+.container,
+.indicateNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.main {
+  flex-direction: row;
+  margin-top: 5px;
+  width: 100%;
+  flex-wrap: 0;
+  flex-wrap: wrap;
+  border: 1px solid;
+}
+.container {
+  flex-direction: column;
+  margin: 10px;
+  width: 300px;
+  height: 400px;
+  border-radius: 15px;
+  background-color: #aaa;
+  flex-shrink: 0;
+
+}
+
+.indicateNumber {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background-color: #ddd;
+  width: 100px;
+  height: 10%;
+  font-size: 30px;
+  font-weight: bolder;
+  margin-top: 5%;
+  color: #f00;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+
+.boxResult {
+  display: flex;
+  align-items: center;
+  background-color: #ddd;
+  width: 270px;
+  height: 320px;
+  margin: 5% 10%;
+  border-radius: 10px;
+  flex-direction: column;
+  flex-shrink: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.result {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  width: 250px;
+  height: 26px;
+  background-color: #fff;
+  margin: 1px  20px;
+}
+
+.operation{
+  padding-left: 85px;
+  color: #000;
+
+}
+.resultOperation {
+  color: #f00;
+  word-spacing: 3px;
+}
