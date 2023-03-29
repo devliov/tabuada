@@ -1,36 +1,81 @@
-const titulo = buildH1("title", "title");
-titulo.innerHTML = `Tabuada de multiplicação (<span class="title_symbol">x</span>)`;
-const inputValue = buildInput(
-  "inputComand",
-  "inputComand",
-  "text",
-  "Apenas números!)",
-  "3"
-);
+/**
+ * Declaração de variáveis
+ */
 const body = document.querySelector("body");
-const main = buildArticle("main", "main");
-const container = buildDiv("container", "container");
-body.append(titulo, inputValue, main);
-const indicateNumber = buildDiv("indicateNumber", "indicateNumber");
-const boxResult = buildDiv("boxResult", "boxResult");
+const mainElement = buildArticle("main", "main");
 
-let valuer = 0;
+/**
+ * Inicializa o programa
+ */
+function initialize() {
+  
+  const titleElement = buildH1(`Tabuada de multiplicação (<span class="title_symbol">x</span>)`, "title", "title");
+  const inputElement = buildInput(
+    "inputComand",
+    "inputComand",
+    "text",
+    "Apenas números!)"
+  );
+  
+  body.append(titleElement, inputElement, mainElement);
 
-function showAll() {
-  const container1 = buildDiv("container", "container");
-  const container2 = buildDiv("container", "container");
-  const container3 = buildDiv("container", "container");
-  main.append(container,container1,container2,container3);
-  container.append(indicateNumber, boxResult);
-  container1.append(indicateNumber, boxResult);
-  container2.append(indicateNumber, boxResult);
-  container3.append(indicateNumber, boxResult);
+  inputElement.addEventListener("keyup", handleInput);
 }
 
-function buildH1(id = "", classe = "") {
+function handleInput(event) {
+  if(event.key !== "Enter") {
+    return;
+  }
+
+  clearDisplay();
+
+  const numericValues = event.target.value.split(";");
+
+  if(numericValues.some(value => isNaN(value))) {
+      alert("Apenas números separados por `;` são permitidos!");
+      return;
+  }
+
+
+  numericValues.forEach(numericValue => {
+      const data = operate(numericValue);
+      const containerResultElement = prepareResult(data);
+      const containerElement = prepareContainer(containerResultElement, numericValue);
+      showData(containerElement)
+  })
+}
+
+
+function showData(containerElement){
+  mainElement.append(containerElement)
+}
+
+function prepareResult(data = []) {
+  const _boxResult = buildDiv({ id: 'boxResult', className: 'boxResult'});
+  _boxResult.innerHTML = "";
+
+  data.forEach((value) => {
+      const divResult = `<div id="number-${value.numberOperator}" class="result" ><p class="operation">${value.numberBase} ${value.operation} ${value.numberOperator} ${value.equal} <span class="resultOperation" > ${value.result}</span></p></div>`;
+      _boxResult.innerHTML += divResult;
+  });
+
+  return _boxResult;
+}
+
+function prepareContainer(containerResultElement, inidicateNumber) {
+  const _container = buildDiv({ className: 'container' });
+  const _indicateNumber = buildDiv({ className: 'indicateNumber', id: `indicateNumber-${inidicateNumber}` });
+  _indicateNumber.innerHTML = inidicateNumber
+  _container.append(_indicateNumber, containerResultElement);
+
+  return _container;
+}
+
+function buildH1(text, id = "", classe = "") {
   const h1 = document.createElement("h1");
   h1.setAttribute("id", id);
   h1.setAttribute("class", classe);
+  h1.innerHTML = text;
   return h1;
 }
 
@@ -58,10 +103,16 @@ function buildArticle(id = "", classe = "") {
   return article;
 }
 
-function buildDiv(id = "", classe = "") {
+function buildDiv(params = {id: '', className: ''}) {
   const div = document.createElement("div");
-  div.setAttribute("id", id);
-  div.setAttribute("class", classe);
+  
+  if(params.id) {
+    div.setAttribute("id", params.id);
+  }
+  
+  if(params.className) {
+    div.setAttribute("class", params.className);
+  }
   div.textContent = "";
   return div;
 }
@@ -95,45 +146,9 @@ function operate(operator) {
   });
 }
 
-function showResult(data = []) {
-  boxResult.innerHTML = "";
-
-  data.forEach((value, index) => {
-    setTimeout(() => {
-      const divResult = `<div id="number-${value.numberOperator}" class="result" ><p class="operation">${value.numberBase} ${value.operation} ${value.numberOperator} ${value.equal} <span class="resultOperation" > ${value.result}</span></p></div>`;
-      boxResult.innerHTML += divResult;
-    }, 20 * index);
-  });
+function clearDisplay() {
+  mainElement.innerHTML = "";
 }
 
-function changeIndicate(valueOfInput) {
-  indicateNumber.innerHTML = "";
-  setTimeout(() => {
-    indicateNumber.innerHTML = valueOfInput;
-  }, 300);
-}
 
-function handleInput(event) {
-  const inputValue = parseInt(event.target.value);
-  if (!isNaN(inputValue)) {
-    valuer = parseInt(event.target.value);
-
-    let data = operate(valuer);
-    showResult(data);
-    showAll();
-
-    changeIndicate(valuer);
-  } else {
-    main.innerHTML = "";
-  }
-}
-
-inputValue.addEventListener("keyup", (event) => {
-  switch (event.key) {
-    case "Enter":
-      handleInput(event);
-      break;
-    default:
-      return (main.innerHTML = "");
-  }
-});
+initialize();
